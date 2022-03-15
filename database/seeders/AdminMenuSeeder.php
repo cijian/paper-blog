@@ -13,6 +13,7 @@ class AdminMenuSeeder extends Seeder
      */
     public function run()
     {
+
         DB::table('admin_menu')->where('id',1)->update(['title'=>'控制面板']);
         DB::table('admin_menu')->where('id',2)->update(['title'=>'后台管理']);
         DB::table('admin_menu')->where('id',3)->update(['title'=>'用户']);
