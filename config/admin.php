@@ -55,10 +55,10 @@ return [
     | the controller namespace, and the default middleware. If you want to
     | access through the root path, just set the prefix to empty string.
     |
-    */
+//    */
     'route' => [
 
-//        'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
+        'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
         'domain'    => env('ADMIN_DOMAIN', null),
 
         'namespace' => 'App\\Admin\\Controllers',

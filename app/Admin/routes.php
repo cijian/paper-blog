@@ -41,7 +41,7 @@ Route::group($attributes, function ($router) {
 
 
 Route::group([
-//    'prefix'        => config('admin.route.prefix'),
+    'prefix'        => config('admin.route.prefix'),
     'domain'        => config('admin.route.domain'),
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
