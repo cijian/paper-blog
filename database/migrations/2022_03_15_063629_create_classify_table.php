@@ -16,9 +16,9 @@ class CreateClassifyTable extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('name',100)->default('')->comment('名称');
-            $table->tinyInteger('sort')->default(0)->comment('排序字段');
-            $table->tinyInteger('display')->default(0)->comment('是否展示');
+            $table->string('name',100)->nullable(false)->default('')->comment('名称');
+            $table->tinyInteger('sort')->nullable(false)->default(0)->comment('排序字段');
+            $table->tinyInteger('display')->nullable(false)->default(0)->comment('是否展示');
             $table->softDeletes();
             $table->timestamps();
         });

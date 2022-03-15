@@ -17,10 +17,12 @@ class CreateLeaveMessageTable extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->integer('article_id')->default(0)->comment('文章ID');
-            $table->integer('reply_id')->default(0)->comment('回复ID');
-            $table->integer('first_reply_id')->default(0)->comment('主回复ID');
-            $table->string('comment')->default('')->comment('评论');
+            $table->integer('article_id')->nullable(false)->default(0)->comment('文章ID');
+            $table->integer('reply_id')->nullable(false)->default(0)->comment('回复ID');
+            $table->integer('first_reply_id')->nullable(false)->default(0)->comment('主回复ID');
+            $table->string('ip',20)->nullable(false)->default('')->comment('IP');
+            $table->string('leave_name',20)->nullable(false)->default('')->comment('留言人随机名称');
+            $table->text('comment')->default('')->comment('评论');
             $table->softDeletes();
             $table->timestamps();
         });

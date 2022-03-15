@@ -15,8 +15,8 @@ class CreateArticleLabelTable extends Migration
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
-            $table->integer('article_id')->default(0)->comment('文章ID');
-            $table->integer('label_id')->default(0)->comment('标签ID');
+            $table->integer('article_id')->nullable(false)->default(0)->comment('文章ID');
+            $table->integer('label_id')->nullable(false)->default(0)->comment('标签ID');
             $table->softDeletes();
             $table->timestamps();
         });

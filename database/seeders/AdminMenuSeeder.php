@@ -22,5 +22,12 @@ class AdminMenuSeeder extends Seeder
         DB::table('admin_menu')->where('id',6)->update(['title'=>'菜单']);
         DB::table('admin_menu')->where('id',7)->update(['title'=>'操作日志']);
 
+        DB::table('admin_menu')->insert(['id'=>8,'parent_id'=>0,'order'=>8,'title'=>'文章管理','icon'=>'fa-bars','uri'=>'/','created_at'=>'2022-03-15 03:44:35','updated_at'=>'2022-03-15 03:44:35']);
+        DB::table('admin_menu')->insert(['id'=>9,'parent_id'=>8,'order'=>9,'title'=>'分类','icon'=>'fa-chain','uri'=>'/classify','created_at'=>'2022-03-15 03:44:35','updated_at'=>'2022-03-15 03:44:35']);
+//        DB::table('admin_menu')->insert(['id'=>10,'parent_id'=>0,'order'=>10,'title'=>'区域管理','icon'=>'fa-image','uri'=>'/region','created_at'=>'2018-10-08 03:44:35','updated_at'=>'2018-10-08 03:44:35']);
+//        DB::table('admin_menu')->insert(['id'=>11,'parent_id'=>0,'order'=>11,'title'=>'服务商管理','icon'=>'fa-subway','uri'=>'/','created_at'=>'2018-10-08 03:44:35','updated_at'=>'2018-10-08 03:44:35']);
+//        DB::table('admin_menu')->insert(['id'=>12,'parent_id'=>11,'order'=>12,'title'=>'服务商的服务','icon'=>'fa-bars','uri'=>'/facilitator','created_at'=>'2018-10-08 03:44:35','updated_at'=>'2018-10-08 03:44:35']);
+
+
     }
 }
