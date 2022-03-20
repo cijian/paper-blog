@@ -17,8 +17,8 @@ class CreateArticleLabelTable extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->integer('article_id')->nullable(false)->default(0)->comment('文章ID');
             $table->integer('label_id')->nullable(false)->default(0)->comment('标签ID');
-            $table->softDeletes();
-            $table->timestamps();
+//            $table->softDeletes();
+//            $table->timestamps();
         });
 
         \DB::statement("ALTER TABLE `".env('DB_PREFIX','')."{$this->table}` comment '文章-标签关联表'");

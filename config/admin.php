@@ -59,11 +59,14 @@ return [
     'route' => [
 
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
-        'domain'    => env('ADMIN_DOMAIN', null),
+
+        'as' => env('ADMIN_ROUTE_AS', 'admin'),
+
+        'domain' => env('ADMIN_DOMAIN', null),
 
         'namespace' => 'App\\Admin\\Controllers',
 
-        'middleware' => ['web', 'admin', 'admin.session'],
+        'middleware' => ['web', 'admin'],
     ],
 
     /*
@@ -290,7 +293,7 @@ return [
     | "sidebar-mini".
     |
     */
-    'layout' => ['sidebar-mini', 'sidebar-collapse'],
+    'layout' => ['sidebar-mini'],
 
     /*
     |--------------------------------------------------------------------------

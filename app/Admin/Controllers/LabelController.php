@@ -2,13 +2,13 @@
 
 namespace App\Admin\Controllers;
 use App\Models\Classify;
+use App\Models\Label;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 
-class ClassifyController extends BaseController
+class LabelController extends BaseController
 {
-
 
     /**
      * 列表
@@ -17,12 +17,12 @@ class ClassifyController extends BaseController
      */
     public function index(Content $content)
     {
-        $grid = new Grid(new Classify());
+        $grid = new Grid(new Label());
 
         $grid->column('id', __('ID'));
-        $grid->column('name', __('名称'))->editable();
+        $grid->column('label_name', __('标签名称'))->editable();
         $grid->column('sort', __('排序'))->editable();
-        $grid->column('display', __('是否展示'))->switch(Classify::DISPLAY);
+        $grid->column('display', __('是否展示'))->switch(Label::DISPLAY);
 
 
         $grid->filter(function($filter){
@@ -31,12 +31,12 @@ class ClassifyController extends BaseController
             $filter->disableIdFilter();
 
             // 在这里添加字段过滤器
-            $filter->like('name', '名称');
+            $filter->like('label_name', '标签名称');
 
         });
 
         $grid->quickCreate(function (Grid\Tools\QuickCreate $create) {
-            $create->text('name', '名称');
+            $create->text('label_name', '名称');
             $create->integer('sort', '排序');
             $create->select('display', '是否展示')->options(Classify::DISPLAY)->default(1);
         });
@@ -74,9 +74,9 @@ class ClassifyController extends BaseController
     public function form()
     {
 
-        $form = new Form(new Classify());
+        $form = new Form(new Label());
 
-        $form->display('name', __('名称'));
+        $form->display('label_name', __('标签名称'));
         $form->display('sort', __('排序'));
         $form->display('display', __('是否展示'));
 

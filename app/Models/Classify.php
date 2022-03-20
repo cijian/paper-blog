@@ -7,8 +7,8 @@ class Classify extends Base
 {
 
     const DISPLAY = [
-        0 => '否',
         1 => '是',
+        0 => '否',
     ];
 
     protected $table ='classify';

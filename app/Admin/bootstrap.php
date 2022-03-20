@@ -1,5 +1,5 @@
 <?php
-use Encore\Admin\Admin;
+//use Encore\Admin\Admin;
 /**
  * Laravel-admin - admin builder based on Laravel.
  * @author z-song <https://github.com/z-song>

@@ -5,7 +5,7 @@ use Illuminate\Routing\Router;
 
 //Admin::routes();
 $attributes = [
-//    'prefix'     => config('admin.route.prefix'),
+    'prefix'     => config('admin.route.prefix'),
     'middleware' => config('admin.route.middleware'),
     'domain'     => config('admin.route.domain'),
 ];
@@ -45,12 +45,13 @@ Route::group([
     'domain'        => config('admin.route.domain'),
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
-    'as'            => config('admin.route.prefix') . '.',
+    'as'            => config('admin.route.as') . '.',
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
 
-    $router->resource('classify', 'ClassifyController');
+    $router->resource('classify', 'ClassifyController')->names('classify');
+    $router->resource('label', 'LabelController')->names('label');
 
 
 });
