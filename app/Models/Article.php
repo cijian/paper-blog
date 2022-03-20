@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Article extends Base
 {
-    protected $table ='classify';
+
+    const DISPLAY = [
+        1 => '是',
+        0 => '否',
+    ];
+
+    protected $table ='article';
 
     protected $fillable = [
         'classify_id',
@@ -19,6 +25,8 @@ class Article extends Base
         'sort',
         'display',
     ];
+
+
 
 
     public function classify()

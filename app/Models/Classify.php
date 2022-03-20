@@ -18,5 +18,16 @@ class Classify extends Base
         'display',
     ];
 
+    public function scopeDisplay($query,$display = 1)
+    {
+        return $query->where('display',$display);
+    }
+
+
+    public function getClassList()
+    {
+        return self::query()->display()->pluck('name','id');
+    }
+
 
 }

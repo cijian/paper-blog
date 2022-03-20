@@ -20,38 +20,34 @@ class ArticleController extends BaseController
     {
         $grid = new Grid(new Article());
 
-        $classify = Classify::query()->where()->pluck('name','id');
 
         $grid->column('id', __('ID'));
+        $grid->column('title', __('文章标题'))->editable();
+        $grid->column('describe', __('描述'));
         $grid->column('classify.name', __('分类名称'));
-        $grid->column('labels', __('标签名称'))->display(function ($label) {
+        $grid->column('labels', __('标签'))->display(function ($label) {
             $label_str = '';
             foreach ($label as $key => $value){
                 $label_str .= "<span class='label label-warning'>{$value->name}</span>";
             }
 
-        });;
+        });
 
-        $grid->column('title', __('标签名称'))->editable();
-        $grid->column('describe', __('排序'))->editable();
 //        $grid->column('content', __('内容'));
         $grid->column('publish', __('发布时间'));
         $grid->column('sort', __('是否展示'));
         $grid->column('display', __('是否展示'));
+        $grid->column('created_at', __('创建时间'));
+        $grid->column('updated_at', __('更新时间'));
 
 
-        $grid->filter(function($filter){
+        $grid->filter(function(Grid\Filter $filter){
 
             // 在这里添加字段过滤器
-            $filter->like('name', 'name');
+            $filter->like('title', '文章标题');
 
         });
 
-        $grid->quickCreate(function (Grid\Tools\QuickCreate $create) {
-            $create->text('label_name', '名称');
-            $create->integer('sort', '排序');
-            $create->select('display', '是否展示')->options(Classify::DISPLAY)->default(1);
-        });
 
         $grid->actions(function (Grid\Displayers\Actions $actions) {
 
@@ -59,28 +55,24 @@ class ArticleController extends BaseController
 //            $actions->disableDelete();
 
             // 去掉编辑
-            $actions->disableEdit();
+//            $actions->disableEdit();
 
             // 去掉查看
-            $actions->disableView();
-
+//            $actions->disableView();
 
         });
 
 
-        $grid->disableExport();
-        $grid->disableCreateButton();
-
         return $content
-            ->title('分类')
-            ->description('分类列表')
+            ->title('文章')
+            ->description('文章列表')
             ->body($grid);
 
     }
 
 
     /**
-     * 新增表单
+     * @param Classify $classifyModel
      * @return Form
      */
     public function form()
@@ -88,9 +80,23 @@ class ArticleController extends BaseController
 
         $form = new Form(new Label());
 
-        $form->display('label_name', __('标签名称'));
-        $form->display('sort', __('排序'));
-        $form->display('display', __('是否展示'));
+        $classifyModel = new Classify();
+        $class_select = $classifyModel->getClassList();
+
+        $form->display('id', __('ID'));
+        $form->text('title', __('文章标题'));
+        $form->textarea('describe', __('描述'));
+        $form->editor('content', __('内容'));
+        $form->select('classify_id', __('分类名称'))->options($class_select);
+        $form->select('labels', __('标签名称'))->options($class_select);
+
+        $form->date('publish', __('发布时间'));
+        $form->number('sort', __('排序'));
+        $form->switch('display', __('是否展示'))->states([
+            'on'  => ['value' => 1, 'text' => '打开', 'color' => 'success'],
+            'off' => ['value' => 0, 'text' => '关闭', 'color' => 'danger'],
+        ]);
+
 
         return $form;
 

@@ -25,7 +25,7 @@ class LabelController extends BaseController
         $grid->column('display', __('是否展示'))->switch(Label::DISPLAY);
 
 
-        $grid->filter(function($filter){
+        $grid->filter(function(Grid\Filter $filter){
 
             // 去掉默认的id过滤器
             $filter->disableIdFilter();
@@ -60,7 +60,7 @@ class LabelController extends BaseController
         $grid->disableCreateButton();
 
         return $content
-            ->title('分类')
+            ->title('标签管理')
             ->description('分类列表')
             ->body($grid);
 
