@@ -19,4 +19,17 @@ class Label extends Base
         'display',
     ];
 
+
+    public function scopeDisplay($query,$display = 1)
+    {
+        return $query->where('display',$display);
+    }
+
+
+    public function getLabel()
+    {
+        return self::query()->display()->pluck('label_name','id');
+    }
+
+
 }
