@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Admin\Controllers;
+use App\Admin\Actions\Post\Restore;
+use App\Admin\Extensions\ArticleExport;
 use App\Models\Article;
 use App\Models\Classify;
 use App\Models\Label;
@@ -9,9 +11,15 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Encore\Admin\Widgets\Table;
 
 class ArticleController extends BaseController
 {
+
+    protected function title()
+    {
+        return trans('admin.article');
+    }
 
     /**
      * 列表
@@ -27,7 +35,14 @@ class ArticleController extends BaseController
         $class_list = $ClassifyModel->getClassList();
 
         $grid->column('id', __('ID'));
-        $grid->column('title', __('文章标题'))->editable();
+        $grid->column('title', __('文章标题'))->expand(function ($model) {
+
+            $comments = $model->comments()->orderBy('created_at','desc')->take(10)->get()->map(function ($comment) {
+                return $comment->only(['article_id', 'reply_id', 'first_reply_id', 'comment','created_at']);
+            });
+
+            return new Table(['ID', '内容', '发布时间'], $comments->toArray());
+        });
         $grid->column('describe', __('描述'));
         $grid->column('classify.name', __('分类名称'));
         $grid->column('labels', __('标签'))->display(function ($label) {
@@ -71,7 +86,8 @@ class ArticleController extends BaseController
                 }
             }, '标签', 'label_id')->checkbox($label_list);
 
-
+            // 范围过滤器，调用模型的`onlyTrashed`方法，查询出被软删除的数据。
+            $filter->scope('trashed', '回收站')->onlyTrashed();
         });
 
         $grid->model()->orderBy('sort','asc');
@@ -79,24 +95,30 @@ class ArticleController extends BaseController
 
         $grid->actions(function (Grid\Displayers\Actions $actions) {
 
-            // 去掉删除
-//            $actions->disableDelete();
 
-            // 去掉编辑
-//            $actions->disableEdit();
+            if (\request('_scope_') == 'trashed') {
+                $actions->add(new Restore());
+                $actions->disableDelete();
 
-            // 去掉查看
-//            $actions->disableView();
+                $actions->disableEdit();
 
+                $actions->disableView();
+            }
         });
 
-        $grid->export(function (Grid\Exporters\CsvExporter $export) {
+//        $grid->export(function (Grid\Exporters\CsvExporter $export) {
+//
+//            $export->filename('文章');
+//
+//            $export->originalValue(['title','content']);
+//
+//        });
+        $grid->exporter(new ArticleExport());
 
-            $export->filename('文章');
 
-            $export->originalValue(['title','content']);
-
-        });
+//        $grid->batchActions(function (Grid\Tools\BatchActions $batch) {
+//            $batch->disable(true);
+//        });
 
 
 

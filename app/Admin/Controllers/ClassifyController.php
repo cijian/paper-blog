@@ -9,7 +9,10 @@ use Encore\Admin\Layout\Content;
 class ClassifyController extends BaseController
 {
 
-
+    protected function title()
+    {
+        return trans('admin.classify');
+    }
     /**
      * 列表
      * @param Content $content

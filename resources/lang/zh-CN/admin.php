@@ -103,4 +103,8 @@ return [
     'prev'                   => '上一步',
     'next'                   => '下一步',
     'quick_create'           => '快速创建',
+    'article'                => '文章',
+    'label'                  => '标签',
+    'classify'               => '分类',
+    'leave_message'          => '留言信息',
 ];

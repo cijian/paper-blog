@@ -40,4 +40,10 @@ class Article extends Base
         return $this->belongsToMany(Label::class, ArticleLabel::class,'article_id','label_id');
     }
 
+
+    public function comments()
+    {
+        return $this->hasMany(LeaveMessage::class,'article_id','id');
+    }
+
 }

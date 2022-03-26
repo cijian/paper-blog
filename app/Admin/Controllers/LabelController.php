@@ -9,7 +9,10 @@ use Encore\Admin\Layout\Content;
 
 class LabelController extends BaseController
 {
-
+    protected function title()
+    {
+        return trans('admin.label');
+    }
     /**
      * 列表
      * @param Content $content
@@ -61,7 +64,7 @@ class LabelController extends BaseController
 
         return $content
             ->title('标签管理')
-            ->description('分类列表')
+            ->description('标签列表')
             ->body($grid);
 
     }
