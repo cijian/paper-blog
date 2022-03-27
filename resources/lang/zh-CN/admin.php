@@ -107,4 +107,5 @@ return [
     'label'                  => '标签',
     'classify'               => '分类',
     'leave_message'          => '留言信息',
+    'comment'                => '评论',
 ];

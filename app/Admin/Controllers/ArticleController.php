@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Admin\Controllers;
+use App\Admin\Actions\Post\Comment;
 use App\Admin\Actions\Post\Restore;
 use App\Admin\Extensions\ArticleExport;
 use App\Models\Article;
@@ -57,7 +58,7 @@ class ArticleController extends BaseController
 
 //        $grid->column('content', __('内容'));
         $grid->column('publish', __('发布时间'));
-        $grid->column('sort', __('排序'));
+        $grid->column('sort', __('排序'))->editable();
         $grid->column('display', __('是否展示'))->switch(Article::DISPLAY);
         $grid->column('created_at', __('创建时间'))->display(function ($updated_at){
             return Carbon::parse($updated_at)->toDateTimeString();
@@ -75,15 +76,14 @@ class ArticleController extends BaseController
             $filter->between('publish', '发布时间')->date();
 
             $filter->where(function ($query)use($label_list) {
-                switch ($this->input) {
-                    case 'yes':
-                        // custom complex query if the 'yes' option is selected
-                        $query->has('somerelationship');
-                        break;
-                    case 'no':
-                        $query->doesntHave('somerelationship');
-                        break;
+                if(!empty($this->input)){
+                    $label = $this->input;
+
+                    $query->whereHas('labels', function($query)use($label){
+                        $query->whereIn('label_id',$label);
+                    });
                 }
+
             }, '标签', 'label_id')->checkbox($label_list);
 
             // 范围过滤器，调用模型的`onlyTrashed`方法，查询出被软删除的数据。
@@ -103,6 +103,8 @@ class ArticleController extends BaseController
                 $actions->disableEdit();
 
                 $actions->disableView();
+            }else{
+                $actions->add(new Comment());
             }
         });
 
@@ -131,7 +133,6 @@ class ArticleController extends BaseController
 
 
     /**
-     * @param Classify $classifyModel
      * @return Form
      */
     public function form()
@@ -186,10 +187,10 @@ class ArticleController extends BaseController
         $show->field('display', __('是否展示'))->unescape()->as(function ($display) {
             return $display == 1?"<span class='label label-success'>是</span>":"<span class='label label-warning'>否</span>";
         });
-        $show->field('created_at', __('创建时间'))->display(function ($updated_at){
+        $show->field('created_at', __('创建时间'))->as(function ($updated_at){
             return Carbon::parse($updated_at)->toDateTimeString();
         });
-        $show->field('updated_at', __('更新时间'))->display(function ($updated_at){
+        $show->field('updated_at', __('更新时间'))->as(function ($updated_at){
             return Carbon::parse($updated_at)->toDateTimeString();
         });
 

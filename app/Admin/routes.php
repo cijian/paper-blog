@@ -54,6 +54,7 @@ Route::group([
     $router->resource('label', 'LabelController')->names('label');
     $router->resource('article', 'ArticleController')->names('article');
     $router->resource('/leave/message', 'LeaveMessageController')->names('leaveMessage');
+    $router->resource('/comment', 'CommentController')->names('comment');
 
     $router->post(config('admin.extensions.wang-editor2.config.uploadImgUrl'), 'FileController@upload');
 
