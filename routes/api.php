@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/article', [\App\Http\Controllers\Api\ArticleController::class,'index']);
+Route::get('/detail', [\App\Http\Controllers\Api\ArticleController::class,'detail']);
+Route::get('/labels', [\App\Http\Controllers\Api\ArticleController::class,'labels']);
+Route::post('/comment', [\App\Http\Controllers\Api\ArticleController::class,'comment']);

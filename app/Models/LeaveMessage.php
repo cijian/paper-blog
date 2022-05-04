@@ -16,6 +16,9 @@ class LeaveMessage extends Base
         'first_reply_id',
         'comment',
     ];
+    protected $casts = [
+        'created_at'   => 'date:Y-m-d H:i:s',
+    ];
 
     public function __construct(array $attributes = [])
     {
