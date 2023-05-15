@@ -50,10 +50,15 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
 
+    //分类
     $router->resource('classify', 'ClassifyController')->names('classify');
+    //标签
     $router->resource('label', 'LabelController')->names('label');
+    //文章
     $router->resource('article', 'ArticleController')->names('article');
+    //留言
     $router->resource('/leave/message', 'LeaveMessageController')->names('leaveMessage');
+    //评论
     $router->resource('/comment', 'CommentController')->names('comment');
 
     $router->post(config('admin.extensions.wang-editor2.config.uploadImgUrl'), 'FileController@upload');

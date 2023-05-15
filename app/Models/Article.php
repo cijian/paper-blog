@@ -37,12 +37,20 @@ class Article extends Base
     }
 
 
+    /**
+     * 标签关联关系
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function labels()
     {
         return $this->belongsToMany(Label::class, ArticleLabel::class,'article_id','label_id');
     }
 
 
+    /**
+     * 留言关联关系
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function comments()
     {
         return $this->hasMany(LeaveMessage::class,'article_id','id');

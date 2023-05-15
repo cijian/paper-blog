@@ -6,7 +6,7 @@
           <div class="left-wrapper-fixed">
             <div class="user-wrapper">
               <img src="/static/images/face.jpg">
-              <p class="user-name">1111</p>
+              <p class="user-name">梁伟健</p>
               <p class="user-email">4328676032@qq.com</p>
             </div>
             <div class="menu-wrapper">
@@ -21,7 +21,7 @@
                 </li>
                 <li class="">
                   <i class="iconfont icon-git"></i>
-                  <p>Github</p>
+                  <p><a href="https://github.com/cijian/paper-blog">Github</a></p>
                 </li>
               </ul>
             </div>
